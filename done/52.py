@@ -1,6 +1,5 @@
 """
 It can be seen that the number, 125874, and its double, 251748, contain exactly the same digits, but in a different order.
-
 Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x, contain the same digits.
 """
 
@@ -32,6 +31,8 @@ def sameDigits(n):
     
     return True
 
+main()
+
 # Answer is 142857
-# Takes around 1.5 seconds
+# Takes around 1 seconds
 # Completed on 1/9/2019 on the train from SJ to SB, took like 30 minutes

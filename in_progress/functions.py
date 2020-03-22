@@ -1,6 +1,25 @@
 from math import *
 from functools import reduce
 import itertools
+import time
+
+# make a decorator that times how long my functions take to run
+def timing(func):
+    def inner(*args):
+        start = time.time()
+        print("timing function")
+        result = func(*args)
+        time_diff = time.time() - start
+        if time_diff > 60:
+            minutes = time_diff // 60
+            seconds = round(time_diff % 60)
+            print(f"This took {minutes} minutes and {seconds} seconds to run")
+        else:
+            print(f"This took {time_diff} seconds to run")
+
+        return result
+    return inner
+
 
 def isPrime(n):
     """checks if N is prime in log(n) time"""
@@ -9,15 +28,36 @@ def isPrime(n):
     for num in range(2, int(sqrt(n))+1):
         if n % num == 0:
             return False
-    return True
+    return 
 
-def primeGen():
-    """generator that yields successive prime numbers forever"""
-    n = 2
-    while True:
-        if isPrime(n):
+def primeGen(k):
+    """generator that yields successive prime numbers up to K"""
+    """Only checks division with primes < N, should be pretty efficient"""
+    # Takes about 5 seconds to generate primes up to 1M.
+    # asymptotically not good, feels kinda exponential ooop
+    primes_so_far = [2]
+    not_prime = False
+    yield 2
+
+    for n in range(3, k, 2):
+        for p in primes_so_far:
+            if p > sqrt(n):
+                break
+            if n % p == 0:
+                not_prime = True
+                break
+        if not_prime:
+            not_prime = False
+            continue
+        else:
+            primes_so_far.append(n)
             yield n
-        n+=1
+
+
+    # while n < K:
+    #     if isPrime(n):
+    #         yield n
+    #     n+=1
 
 def findFactors(n):
     """ find factors of N in hella zoomy (log(n)) time. Returns a list."""
@@ -40,10 +80,7 @@ def memoize(f):
     return helper
 
 def recursiveFactorial(n):
-    """
-    Compute the factorial of N recursively.
-    Slow as fuck. Don't use this unless memoized or something.
-    """
+    """compute the factorial of N recursively."""
     if n <= 1:
         return 1
     return n * factorial(n-1)
