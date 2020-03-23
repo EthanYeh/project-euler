@@ -112,9 +112,7 @@ def gcd(numer, denom):
 
 def isPalindrome(num):
     strnum = str(num)
-    if strnum == strnum[::-1]:
-            return True
-    return False
+    return strnum == strnum[::-1]
 
 def isPandigital(strnum):
     if len(strnum) > 9:
