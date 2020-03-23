@@ -22,13 +22,13 @@ def timing(func):
 
 
 def isPrime(n):
-    """checks if N is prime in log(n) time"""
+    """checks if N is prime in sqrt(n) time"""
     if n < 2:
         return False
     for num in range(2, int(sqrt(n))+1):
         if n % num == 0:
             return False
-    return 
+    return True
 
 def primeGen(k):
     """generator that yields successive prime numbers up to K"""
